@@ -1,17 +1,13 @@
 cask "ryujinx" do
-  version "1.1.1295"
-  sha256 "40cc1e914b4baa142fcb2c966c78bde054d8de8011d86c823d21df34c0dced65"
+  version "1.3.3"
+  sha256 "e4818bb84c98e0d3120691821e90772099e46101273d3f145ffdb10eee2c0dbb"
 
-  url "https://github.com/Ryujinx/release-channel-master/releases/download/#{version}/test-ava-ryujinx-#{version}-macos_universal.app.tar.gz",
-    verified: "github.com/Ryujinx/release-channel-master/"
+  url "https://git.ryujinx.app/api/v4/projects/1/packages/generic/Ryubing/#{version}/ryujinx-#{version}-macos_universal.app.tar.gz",
+    verified: "https://git.ryujinx.app/api/v4/projects/1/packages/generic/Ryubing/"
+
   name "Ryujinx"
-  desc "Experimental Nintendo Switch Emulator written in C#"
-  homepage "https://ryujinx.org/"
-
-  livecheck do
-    url :url
-    strategy :github_latest
-  end
+  desc "Nintendo Switch 1 emulator written in C#"
+  homepage "https://ryujinx.app/"
 
   auto_updates true
   depends_on macos: ">= :big_sur"
