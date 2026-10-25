@@ -5,11 +5,12 @@ class JadxHeadlessMcp < Formula
   sha256 "6e5eacf500b64292bfb73c49797c1958f6ee44646e43e868039ae7feb573ff75"
   license "Apache-2.0"
 
-  depends_on "openjdk"
+  depends_on "openjdk@21"
 
   def install
     libexec.install "jadx-headless-mcp-#{version}-all.jar" => "jadx-headless-mcp.jar"
-    bin.write_jar_script libexec/"jadx-headless-mcp.jar", "jadx-headless-mcp", "-XX:MaxRAMPercentage=60.0"
+    bin.write_jar_script libexec/"jadx-headless-mcp.jar", "jadx-headless-mcp", "-XX:MaxRAMPercentage=60.0",
+                         java_version: "21"
   end
 
   test do
