@@ -11,6 +11,11 @@ class GhidraAT121 < Formula
     regex(/^Ghidra[._-]v?(12\.1\.\d+)(?:[._-]build)?$/i)
   end
 
+  bottle do
+    root_url "https://github.com/kurefm/homebrew-tap/releases/download/ghidra@12.1-12.1.4_1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0bec781d32cf5e88d2d81d1472eaa4c4fbdb9a67d694355ef2a667cb9cc448b2"
+  end
+
   keg_only :versioned_formula
 
   depends_on "gradle" => :build
