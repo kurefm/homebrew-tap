@@ -1,0 +1,5 @@
+{
+  "ghidra@12.1": [
+    "libexec/docs/GhidraClass/ExerciseFiles/**/*"
+  ]
+}
