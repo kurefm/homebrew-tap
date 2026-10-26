@@ -39,6 +39,11 @@ class GhidraAT121 < Formula
 
   test do
     assert_match "application.version=#{version}", (libexec/"Ghidra/application.properties").read
+    os = OS.mac? ? "mac" : "linux"
+    arch = Hardware::CPU.arm? ? "arm_64" : "x86_64"
+    assert_predicate libexec/"Ghidra/Features/Decompiler/os/#{os}_#{arch}/decompile", :executable?
+    assert_match "foo()",
+                 shell_output("#{libexec}/GPL/DemanglerGnu/os/#{os}_#{arch}/demangler_gnu_v2_24 _Z3foov")
     (testpath/"analyzeHeadless").write_env_script libexec/"support/analyzeHeadless",
                                                   Language::Java.overridable_java_home_env("21")
     (testpath/"project").mkpath

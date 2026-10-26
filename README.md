@@ -25,9 +25,27 @@ and `JAVA_HOME` to the installed backends and JDK 21 by default. Existing enviro
 values take precedence; no manual exports are required.
 
 `ghidra@12.1` is keg-only, so it can coexist with the current `ghidra` formula.
+All platforms use Ghidra 12.1.4. Homebrew uses this tap's bottles when a matching
+published bottle is configured; otherwise it builds from source. Use
+`brew install --build-from-source kurefm/tap/ghidra@12.1` to compile explicitly.
 REA 6.8.0 requires Node.js `^22.23.4 || ^24.22.1 || >=26.12.1`.
 
 Both backends depend on `openjdk@21` and use JDK 21 by default.
+
+## Building and publishing bottles
+
+Formula pull requests run `brew test-bot` on Apple Silicon macOS 15, Intel
+macOS 15, Linux x86_64, and Linux ARM64. The jobs build from source, run formula
+tests, and upload a separate `bottles_<runner>` artifact for each platform.
+macOS 15 bottles do not cover macOS 14; systems without a compatible bottle
+continue to build from source.
+
+Once the workflows are on `main`, open a formula pull request and wait for all
+four build jobs to pass. Run **Actions → brew pr-pull → Run workflow**, providing
+the pull request number and its reviewed full head commit SHA. The workflow
+publishes bottles to this repository's GitHub Releases, updates the formula's
+standard `bottle do` block, records build provenance, and pushes the resulting
+commits to `main`. Until that first publication, `ghidra@12.1` builds from source.
 
 ## Documentation
 
