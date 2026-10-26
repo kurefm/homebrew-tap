@@ -34,18 +34,21 @@ Both backends depend on `openjdk@21` and use JDK 21 by default.
 
 ## Building and publishing bottles
 
-Formula pull requests run `brew test-bot` on Apple Silicon macOS 15, Intel
-macOS 15, Linux x86_64, and Linux ARM64. The jobs build from source, run formula
-tests, and upload a separate `bottles_<runner>` artifact for each platform.
+Formula pull requests run `brew test-bot` on Apple Silicon macOS 15. The job
+builds from source, runs formula tests, and uploads a `bottles` artifact.
+Intel macOS and Linux continue to build from source.
 macOS 15 bottles do not cover macOS 14; systems without a compatible bottle
 continue to build from source.
 
-Once the workflows are on `main`, open a formula pull request and wait for all
-four build jobs to pass. Run **Actions → brew pr-pull → Run workflow**, providing
-the pull request number and its reviewed full head commit SHA. The workflow
+Once the workflows are on `main`, open a formula pull request and wait for
+the build job to pass. Run **Actions → brew pr-pull → Run workflow**, select
+the pull request's branch, and provide its number and reviewed full head commit
+SHA. The workflow
 publishes bottles to this repository's GitHub Releases, updates the formula's
-standard `bottle do` block, records build provenance, and pushes the resulting
-commits to `main`. Until that first publication, `ghidra@12.1` builds from source.
+standard `bottle do` block, records build provenance, and pushes the bottle
+commit back to the pull request branch. Review the bottle changes and merge
+the pull request manually. Until that first publication and merge,
+`ghidra@12.1` builds from source.
 
 ## Documentation
 

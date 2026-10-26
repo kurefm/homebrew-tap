@@ -4,10 +4,16 @@ class GhidraAT121 < Formula
   url "https://github.com/NationalSecurityAgency/ghidra/archive/refs/tags/Ghidra_12.1.4_build.tar.gz"
   sha256 "2a858300c350f05ae2e729dff86b4f584d0b9a6b398879c55025574e67696cec"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
     regex(/^Ghidra[._-]v?(12\.1\.\d+)(?:[._-]build)?$/i)
+  end
+
+  bottle do
+    root_url "https://github.com/kurefm/homebrew-tap/releases/download/ghidra@12.1-12.1.4_1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0bec781d32cf5e88d2d81d1472eaa4c4fbdb9a67d694355ef2a667cb9cc448b2"
   end
 
   keg_only :versioned_formula
