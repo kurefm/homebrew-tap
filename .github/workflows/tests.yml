@@ -66,6 +66,7 @@ jobs:
           fi
           # test-bot skips formulae whose dependencies have no compatible bottles.
           formula=kurefm/tap/ghidra@12.1
+          brew install --only-dependencies "$formula"
           brew install --build-bottle "$formula"
           brew test "$formula"
           pkg_version=$(brew list --versions "$formula" | awk '{print $2}')
