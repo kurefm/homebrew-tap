@@ -4,6 +4,7 @@ class GhidraAT121 < Formula
   url "https://github.com/NationalSecurityAgency/ghidra/archive/refs/tags/Ghidra_12.1.4_build.tar.gz"
   sha256 "2a858300c350f05ae2e729dff86b4f584d0b9a6b398879c55025574e67696cec"
   license "Apache-2.0"
+  revision 1
 
   livecheck do
     url :stable
