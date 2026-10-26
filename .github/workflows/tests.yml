@@ -81,7 +81,7 @@ jobs:
           if git diff --quiet "$BASE_SHA" HEAD -- Formula/ghidra@12.1.rb; then
             exit 0
           fi
-          compgen -G 'ghidra@12.1--*.bottle.tar.gz' || exit 1
+          compgen -G 'ghidra@12.1--*.bottle*.tar.gz' || exit 1
           compgen -G 'ghidra@12.1--*.bottle.json' || exit 1
 
       - name: Upload bottles as artifact

@@ -41,11 +41,14 @@ macOS 15 bottles do not cover macOS 14; systems without a compatible bottle
 continue to build from source.
 
 Once the workflows are on `main`, open a formula pull request and wait for all
-four build jobs to pass. Run **Actions → brew pr-pull → Run workflow**, providing
-the pull request number and its reviewed full head commit SHA. The workflow
+four build jobs to pass. Run **Actions → brew pr-pull → Run workflow**, select
+the pull request's branch, and provide its number and reviewed full head commit
+SHA. The workflow
 publishes bottles to this repository's GitHub Releases, updates the formula's
-standard `bottle do` block, records build provenance, and pushes the resulting
-commits to `main`. Until that first publication, `ghidra@12.1` builds from source.
+standard `bottle do` block, records build provenance, and pushes the bottle
+commit back to the pull request branch. Review the bottle changes and merge
+the pull request manually. Until that first publication and merge,
+`ghidra@12.1` builds from source.
 
 ## Documentation
 
