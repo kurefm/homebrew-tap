@@ -48,6 +48,28 @@ commit back to the pull request branch. Review the bottle changes and merge
 the pull request manually. Until that first publication and merge,
 `ghidra@12.1` builds from source.
 
+## XieZuo
+
+```sh
+brew install --cask kurefm/tap/xiezuo
+```
+
+After installation, the cask removes pending updates from
+`~/Library/Application Support/xiezuo/update` and locks the empty directory with
+`chflags uchg` for the installing user. This blocks the macOS updater staging
+flow checked in XieZuo 5.55.0 without modifying the signed app bundle. Update
+checks, downloads and prompts may still occur; future versions may use another
+update path. Quit XieZuo before installing or reinstalling the cask.
+
+Use `brew upgrade --cask kurefm/tap/xiezuo` for updates. For an existing install,
+run `brew reinstall --cask kurefm/tap/xiezuo` to apply the lock.
+Uninstalling the cask unlocks the directory so that `--zap` can remove it.
+To enable in-app updates manually:
+
+```sh
+chflags nouchg "$HOME/Library/Application Support/xiezuo/update"
+```
+
 ## Documentation
 
 `brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).

@@ -61,6 +61,51 @@ cask "xiezuo" do
   depends_on :macos
 
   app "xiezuo.app"
+  generated_script "xiezuo-update-lock.sh", content: <<~SH
+    #!/bin/sh
+    set -eu
+    case "$1" in
+      lock|unlock) ;;
+      *) exit 64 ;;
+    esac
+    if [ -L update ] || { [ -e update ] && [ ! -d update ]; }; then
+      [ "$1" = unlock ] && exit 0
+      echo "Refusing to replace a non-directory update cache: $PWD/update" >&2
+      exit 1
+    fi
+    if [ -d update ]; then
+      /usr/bin/chflags nouchg update
+    fi
+    if [ "$1" = lock ]; then
+      # Discard staged updates before locking; existing payloads can otherwise still run.
+      /bin/rm -rf update
+      /bin/mkdir update
+      /usr/bin/chflags uchg update
+    fi
+  SH
+
+  # shortcut: blocks the current macOS updater staging path; recheck when upgrading XieZuo.
+  postflight_steps [
+    { type: "mkdir_p", path: { path: "Library/Application Support/xiezuo", base: "home" } },
+    {
+      type:           "run",
+      command:        { path: "xiezuo-update-lock.sh", base: "staged_path" },
+      args:           ["lock"],
+      chdir:          { path: "Library/Application Support/xiezuo", base: "home" },
+      writable_paths: [{ path: "Library/Application Support/xiezuo", base: "home" }],
+    },
+  ]
+
+  uninstall_preflight_steps [
+    {
+      type:           "run",
+      command:        { path: "xiezuo-update-lock.sh", base: "staged_path" },
+      args:           ["unlock"],
+      chdir:          { path: "Library/Application Support/xiezuo", base: "home" },
+      writable_paths: [{ path: "Library/Application Support/xiezuo", base: "home" }],
+      guards:         [{ condition: "if_exists", path: "Library/Application Support/xiezuo", base: "home" }],
+    },
+  ]
 
   zap trash: [
     "~/Library/Application Support/Kingsoft/XieZuo",
@@ -69,4 +114,13 @@ cask "xiezuo" do
     "~/Library/Logs/xiezuo",
     "~/Library/Preferences/com.kingsoft.xiezuo.plist",
   ]
+
+  caveats <<~EOS
+    This cask clears staged updates and locks ~/Library/Application Support/xiezuo/update
+    for the installing user to block XieZuo's automatic app replacement.
+    Quit XieZuo before installing or reinstalling this cask.
+    Update checks, downloads and prompts may still occur. Use brew upgrade to update.
+    To allow in-app updates again:
+      chflags nouchg "$HOME/Library/Application Support/xiezuo/update"
+  EOS
 end
