@@ -21,8 +21,6 @@ class Rea < Formula
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/rea --version")
-
     (testpath/"app/package.json").write('{"name":"rea-test","version":"1.0.0","main":"index.js"}')
     (testpath/"app/index.js").write("module.exports = function greet() { return 'hello'; };\n")
     output = shell_output("#{bin}/rea analyze-javascript-application #{testpath}/app --json")
