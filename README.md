@@ -12,25 +12,23 @@ Or `brew tap kurefm/tap` and then `brew install <formula>`.
 - [Ghidra 12.1](https://github.com/NationalSecurityAgency/ghidra): `brew install kurefm/tap/ghidra@12.1`
 - [jadx-headless-mcp](https://github.com/1013503897/jadx-headless-mcp): `brew install kurefm/tap/jadx-headless-mcp`
 
-Installing REA also installs `ghidra@12.1` and `jadx-headless-mcp` from this tap.
-REA 6.8.0 supports Ghidra 12.1.x, with 12.1.4 as its verified version; Ghidra 12.2
-is not supported. Install REA with:
+Installing REA 6.9.0 also installs Homebrew's `ghidra` and this tap's
+`jadx-headless-mcp`. REA accepts Ghidra 12.2 as a compatible build.
 
 ```sh
 brew install kurefm/tap/rea
 ```
 
 The `rea` and `rea-agents` launchers set `GHIDRA_INSTALL_DIR`, `REA_JADX_MCP_JAR`
-and `JAVA_HOME` to the installed backends and JDK 21 by default. Existing environment
-values take precedence; no manual exports are required.
+and `JAVA_HOME` to the installed backends and JDK 25 by default. Existing
+environment values take precedence.
 
-`ghidra@12.1` is keg-only, so it can coexist with the current `ghidra` formula.
-All platforms use Ghidra 12.1.4. Homebrew uses this tap's bottles when a matching
+REA 6.9.0 requires Node.js `^22.23.4 || ^24.22.1 || >=26.12.1`.
+
+`ghidra@12.1` provides Ghidra 12.1.4 and is keg-only, so it can coexist with
+the current `ghidra` formula. Homebrew uses this tap's bottles when a matching
 published bottle is configured; otherwise it builds from source. Use
 `brew install --build-from-source kurefm/tap/ghidra@12.1` to compile explicitly.
-REA 6.8.0 requires Node.js `^22.23.4 || ^24.22.1 || >=26.12.1`.
-
-Both backends depend on `openjdk@21` and use JDK 21 by default.
 
 ## Building and publishing bottles
 
